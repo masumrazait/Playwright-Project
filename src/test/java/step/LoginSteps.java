@@ -11,7 +11,10 @@ import io.cucumber.java.en.When;
 import java.awt.*;
 import java.nio.file.Paths;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class LoginSteps {
+
     @Given("user navigate to the parabankwebsite")
     public void user_navigate_to_the_parabankwebsite() {
         try (Playwright playwright = Playwright.create()) {
@@ -44,8 +47,31 @@ public class LoginSteps {
 
     @When("user validate homepage title")
     public void user_validate_homepage_title() {
-        System.out.println("user validate homepage title");
+        try (Playwright playwright = Playwright.create()) {
+            // Launch browser in non-headless mode
+            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(50));
+            // Create a new page
+            Page page = browser.newPage();
+            // Validate the page title
+            String actualTitle = page.title();
+            String expectedTitle = "ParaBank | Welcome | Online Banking";
 
+            // Check if the actual title matches the expected title
+            if (actualTitle.equals(expectedTitle)) {
+                System.out.println("Title validation passed! The page title is: " + actualTitle);
+            } else {
+                System.out.println("Title validation failed! Expected: " + expectedTitle + ", but got: " + actualTitle);
+            }
+
+            // Optional: Take a screenshot
+            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("images/logo.gif")));
+
+            // Print the actual page title
+            System.out.println("Actual Page Title: " + actualTitle);
+
+            // Optional: wait for a few seconds to observe the maximized window
+            page.waitForTimeout(5000);
+        }
     }
 
     @Then("user enters {string} username")
