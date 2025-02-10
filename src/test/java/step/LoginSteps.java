@@ -16,19 +16,22 @@ public class LoginSteps {
 
     }
 
-    @Then("user enters username")
-    public void user_enters_username() {
-        System.out.println("user enters username");
+    @Then("user enters {string} username")
+    public void user_enters_username(String username) {
+        System.out.println("user enter : " + username);
+
     }
 
-    @Then("user enter the password")
-    public void user_enter_the_password() {
-        System.out.println("user enter the password");
+    @Then("user enter {string} the password")
+    public void user_enter_the_password(String passwod) {
+        System.out.println("user enter : " + passwod);
+
     }
 
     @Then("user click on login button")
     public void user_click_on_login_button() {
         System.out.println("user click on login button");
+        System.out.println("---------------------------------");
     }
 
 }
