@@ -16,3 +16,17 @@ Feature: Login Feature
     Then user enters "invalid" username
     And user enter "invalid" the password
     And user click on login button
+
+
+  Scenario Outline: Login to the parabank with multiple valid userid and password
+
+    Given user navigate to the parabankwebsite
+    When user validate homepage title
+    Then user enters "<username>" username
+    And user enter "<password>" the password
+    And user click on login button
+
+    Examples:
+      | username | password |
+      | masum    | raza@123 |
+      | bittu    |bittu@123 |
