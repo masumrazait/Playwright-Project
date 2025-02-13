@@ -11,8 +11,6 @@ import io.cucumber.java.en.When;
 import java.awt.*;
 import java.nio.file.Paths;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 public class LoginSteps {
 
     @Given("user navigate to the parabankwebsite")
@@ -22,24 +20,21 @@ public class LoginSteps {
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(50));
             // Create a new page
             Page page = browser.newPage();
-
             // Get the screen size dynamically using java.awt.Toolkit
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int screenWidth = screenSize.width;
             int screenHeight = screenSize.height;
-
             // Set the viewport size to match the system screen size (maximized)
             page.setViewportSize(screenWidth, screenHeight);
-
             // Navigate to the URL
             page.navigate("https://parabank.parasoft.com/parabank/index.htm");
-
             // Take a screenshot
             page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("images/logo.gif")));
-
+            page.fill("//input[@name='username']", "masumit1526");
+            page.fill("//input[@name='password']", "masumit1526");
+            page.click("//input[@type='submit']");
             // Print the page title to console
             System.out.println("Page title: " + page.title());
-
             // Wait for a few seconds to observe the maximized window (optional)
             page.waitForTimeout(5000);
         }
@@ -55,7 +50,6 @@ public class LoginSteps {
             // Validate the page title
             String actualTitle = page.title();
             String expectedTitle = "ParaBank | Welcome | Online Banking";
-
             // Check if the actual title matches the expected title
             if (actualTitle.equals(expectedTitle)) {
                 System.out.println("Title validation passed! The page title is: " + actualTitle);
@@ -65,10 +59,8 @@ public class LoginSteps {
 
             // Optional: Take a screenshot
             page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("images/logo.gif")));
-
             // Print the actual page title
             System.out.println("Actual Page Title: " + actualTitle);
-
             // Optional: wait for a few seconds to observe the maximized window
             page.waitForTimeout(5000);
         }
