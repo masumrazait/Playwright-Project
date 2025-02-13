@@ -12,6 +12,7 @@ import java.awt.*;
 import java.nio.file.Paths;
 
 public class LoginSteps {
+    public static Page page;
 
     @Given("user navigate to the parabankwebsite")
     public void user_navigate_to_the_parabankwebsite() {
@@ -19,7 +20,7 @@ public class LoginSteps {
             // Launch browser in non-headless mode
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(50));
             // Create a new page
-            Page page = browser.newPage();
+            page = browser.newPage();
             // Get the screen size dynamically using java.awt.Toolkit
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int screenWidth = screenSize.width;
@@ -68,18 +69,21 @@ public class LoginSteps {
 
     @Then("user enters {string} username")
     public void user_enters_username(String username) {
+        page.fill("//input[@name='username']", username);
         System.out.println("user enter : " + username);
 
     }
 
     @Then("user enter {string} the password")
     public void user_enter_the_password(String passwod) {
+        page.fill("//input[@name='password']", passwod);
         System.out.println("user enter : " + passwod);
 
     }
 
     @Then("user click on login button")
     public void user_click_on_login_button() {
+        page.click("//input[@type='submit']");
         System.out.println("user click on login button");
         System.out.println("---------------------------------");
     }
