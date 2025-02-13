@@ -27,6 +27,6 @@ Feature: Login Feature
     And user click on login button
 
     Examples:
-      | username    | password        |
-      | masumit1526 | masumit1526     |
-      | masumit1526 | masumit1526@123 |
+      | username    | password     |
+      | masumit1526 | masumit1526  |
+      | masumit1526 | masumit1526@ |
