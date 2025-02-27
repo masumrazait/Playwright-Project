@@ -50,9 +50,6 @@ public class LoginStep {
             page.navigate("https://parabank.parasoft.com/parabank/index.htm");
             page.fill("//input[@name='username']", username);
             page.fill("//input[@name='password']", password);
-            page.wait(5000);
-            page.click("//input[@type='submit']");
-            page.wait(5000);
         }
     }
 
