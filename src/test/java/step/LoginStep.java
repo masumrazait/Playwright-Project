@@ -34,7 +34,7 @@ public class LoginStep {
     }
 
     @When("User login into application with username {string} and password {string}")
-    public void user_login_into_application_with_username_and_password(String username, String password) {
+    public void user_login_into_application_with_username_and_password(String username, String password) throws InterruptedException {
         try (Playwright playwright = Playwright.create()) {
             // Launch browser in non-headless mode
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(50));
@@ -50,6 +50,9 @@ public class LoginStep {
             page.navigate("https://parabank.parasoft.com/parabank/index.htm");
             page.fill("//input[@name='username']", username);
             page.fill("//input[@name='password']", password);
+            page.wait(5000);
+            page.click("//input[@type='submit']");
+            page.wait(5000);
         }
     }
 
