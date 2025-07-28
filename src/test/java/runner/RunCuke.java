@@ -1,9 +1,14 @@
 package runner;
 
-import io.cucumber.testng.AbstractTestNGCucumberTests;
-import io.cucumber.testng.CucumberOptions;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
 
-@CucumberOptions(features = "src/test/java/features",glue = {"step"},
-plugin = {"html:target/cucumber-reports/cucumber-html-report.html"})
-public class RunCuke  extends AbstractTestNGCucumberTests {
-}
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        features = "src/test/resources/features",
+        glue = {"pages"},
+        plugin = {"pretty"}
+)
+public class RunCuke {}
